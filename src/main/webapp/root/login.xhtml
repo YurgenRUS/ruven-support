@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+>
+<h:head>
+    <title>Login</title>
+
+    <h:outputScript library="js" name="jquery-2.1.4.min.js"/>
+    <h:outputScript library="js" name="jquery-ui.min.js"/>
+    <h:outputScript library="js" name="jquery.validate.min.js"/>
+    <h:outputScript library="js" name="login.js"/>
+
+    <link href="#{request.contextPath}/resources/css/forms.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/resources/css/restricted_login.css" rel="stylesheet"/>
+</h:head>
+<h:body>
+    <f:view>
+        <div id="login-form-wrapper" style="min-width:320px; width: 70%">
+            <h:form id="login_form">
+                <h3>Добро пожаловать отсюда</h3>
+                <div id="fields" class="fields-container">
+                    <h:messages globalOnly="true" autoUpdate="true" />
+                    <h:panelGroup rendered="#{not rootAuthenticationBean.loggedIn}">
+                        <h:inputText id="login_root" p:placeholder="login" styleClass="field" value="#{rootAuthenticationBean.login}"/>
+                        <h:inputSecret id="pwd_root" styleClass="field" p:placeholder="password" value="#{rootAuthenticationBean.password}"/>
+                        <h:commandButton styleClass="button" value="Войти" action="#{rootAuthenticationBean.login}" update=":messages"/>
+                    </h:panelGroup>
+                    <h:commandButton value="К рубке управления..." styleClass="button"
+                                     action="restricted/root?faces-redirect=true"
+                                     rendered="#{rootAuthenticationBean.loggedIn}"/>
+                    <h:commandButton value="Выход" styleClass="button"
+                                     action="#{rootAuthenticationBean.logout}"
+                                     rendered="#{rootAuthenticationBean.loggedIn}"/>
+                </div>
+            </h:form>
+        </div>
+    </f:view>
+</h:body>
+</html>

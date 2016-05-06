@@ -1,0 +1,120 @@
+input, button, select, textarea {
+    font-weight: initial;
+}
+
+.item-form-container {
+    float: left;
+    display: table;
+    min-width: 300px;
+    padding: 10px 0 20px 5px;
+    font: 13px Arial, Helvetica, sans-serif;
+}
+
+#snapshot-form-container {
+    display: none;
+}
+
+@media all and (min-width: 769px) {
+    #snapshot-form-container {
+        display: table;
+        padding: 1em;
+    }
+
+    .item-form-container {
+        padding: 10px 0 70px 10px;
+    }
+
+    .panel-body {
+        padding: 15px 15px 15px 10px;
+    }
+}
+
+label {
+    display: block;
+    margin: 0 0 1em 0;
+}
+
+label > span {
+    width: 9em;
+    font-weight: bold;
+    float: left;
+    padding-top: 8px;
+    padding-right: 5px;
+}
+
+span.required {
+    color: red;
+}
+
+.item-form-container .dim-number-field {
+    width: 6em !important;
+    max-width: 6em !important;
+}
+
+.item-form-container .input-field {
+    /*width: 48%;*/
+}
+
+.item-form-container .number-field {
+    max-width: 7em;
+    min-width: 5em;
+}
+
+button, input[type=text], input[type=search], input[type=email], input[type=number], input[type=password], textarea, select {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #C2C2C2;
+    box-shadow: 1px 1px 4px #EBEBEB;
+    -moz-box-shadow: 1px 1px 4px #EBEBEB;
+    -webkit-box-shadow: 1px 1px 4px #EBEBEB;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 7px;
+    outline: none;
+}
+
+button:focus, input[type=text]:focus, input[type=search]:focus, input[type=number]:focus, input[type=email]:focus, input[type=password], textarea:focus, select:focus {
+    border: 1px solid #0C0;
+}
+
+button:disabled, input[type=text]:disabled, input[type=search]:disabled, input[type=email]:disabled, input[type=number]:disabled, input[type=password]:disabled, textarea:disabled, select:disabled {
+    cursor: not-allowed;
+}
+
+.item-form-container .textarea-field {
+    height: 100px;
+    min-width: 200px;
+    width: 95%;
+}
+
+button, input[type=submit],
+button, input[type=button] {
+    cursor: pointer;
+    border: none;
+    padding: 8px 15px 8px 15px;
+    background: #FF8500;
+    color: #fff;
+    box-shadow: 1px 1px 4px #DADADA;
+    -moz-box-shadow: 1px 1px 4px #DADADA;
+    -webkit-box-shadow: 1px 1px 4px #DADADA;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+
+button:hover, input[type=submit]:hover,
+button:hover, input[type=button]:hover {
+    background-color: #EA7B00;
+}
+
+button:disabled, input:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+button:hover:disabled, input[type=submit]:hover:disabled,
+button:hover:disabled, input[type=button]:hover:disabled {
+    background-color: #FF8500;
+}

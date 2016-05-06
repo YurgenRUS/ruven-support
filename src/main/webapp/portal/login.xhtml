@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+>
+<h:head>
+    <title>Login</title>
+
+    <h:outputScript library="js" name="jquery-2.1.4.min.js"/>
+    <h:outputScript library="js" name="jquery-ui.min.js"/>
+    <h:outputScript library="js" name="jquery.validate.min.js"/>
+    <h:outputStylesheet name="css/forms.css"/>
+    <h:outputStylesheet name="css/restricted_login.css"/>
+    <h:outputScript library="js" name="login.js"/>
+</h:head>
+<h:body>
+    <f:view>
+        <div id="login-form-wrapper" style="min-width:320px; width: 70%">
+            <h:form id="login_form">
+                <h3>Добро пожаловать отсюда</h3>
+                <div id="fields" class="fields-container">
+                    <h:messages globalOnly="true" autoUpdate="true" />
+                    <h:panelGroup rendered="#{not portalAuthenticationBean.loggedIn}">
+                        <h:inputText id="employee_email" p:placeholder="email" styleClass="field" value="#{portalAuthenticationBean.email}"/>
+                        <h:inputSecret id="pwd" styleClass="field" p:placeholder="password" value="#{portalAuthenticationBean.password}"/>
+                        <h:commandButton styleClass="button" value="Login" action="#{portalAuthenticationBean.login}" update=":messages"/>
+                    </h:panelGroup>
+                    <h:commandButton value="Proceed to management portal" styleClass="button"
+                                     action="restricted/portal?faces-redirect=true"
+                                     rendered="#{portalAuthenticationBean.loggedIn}"/>
+                    <h:commandButton value="Logout" styleClass="button"
+                                     action="#{portalAuthenticationBean.logout}"
+                                     rendered="#{portalAuthenticationBean.loggedIn}"/>
+                </div>
+            </h:form>
+        </div>
+    </f:view>
+</h:body>
+</html>

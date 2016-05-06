@@ -1,0 +1,135 @@
+.table-wrapper {
+    line-height: 1.5em;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px;
+    /*overflow: hidden;*/
+    /*overflow-x: auto;*/
+}
+
+.table-wrapper table {
+    border: solid 1px whitesmoke;
+    border-collapse: collapse;
+    /*margin-bottom: 3em;*/
+    width: 100%;
+}
+
+.table-wrapper td {
+    padding: 0.75em 1em;
+    text-align: left;
+}
+
+.table-wrapper th {
+    padding: 0.75em 1em;
+    text-align: left;
+    background-color: whitesmoke;
+    color: #0E1D25;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.table-wrapper tbody tr:nth-child(2n-1) {
+    background-color: #6ceca4;
+    transition: all .125s ease-in-out;
+}
+
+.table-wrapper tbody tr:hover {
+    background-color: whitesmoke;
+    color: #0E1D25;
+}
+
+.table-wrapper tbody tr:hover > td > a {
+    color: #0E1D25;
+}
+
+/* @Override DataTables */
+
+.table-wrapper table.dataTable.display tbody tr.odd,
+.table-wrapper table.dataTable.display tbody tr.odd>.sorting_1,
+.table-wrapper table.dataTable.display tbody tr.even>.sorting_1 {
+    background-color: transparent;
+}
+
+.table-wrapper table.dataTable td.select-checkbox:before {
+    /*border: 1px solid white;*/
+}
+
+.table-wrapper table.dataTable tr.selected td.select-checkbox:after {
+    text-shadow: none;
+}
+
+.table-wrapper table.dataTable tbody tr.odd.selected, .table-wrapper table.dataTable tbody tr.even.selected {
+    background-color: darkgray;
+}
+
+.table-wrapper table.dataTable.display tbody tr.odd:hover {
+    /*background-color: whitesmoke;*/
+    color: #0E1D25;
+}
+
+.table-wrapper table.dataTable.display tbody tr.odd:hover td.select-checkbox:before,
+.table-wrapper table.dataTable.display tbody tr.even:hover td.select-checkbox:before {
+    border: 1px solid #0E1D25;
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+    /*color: white;*/
+}
+
+.table-wrapper table.dataTable tbody tr {
+    background-color: #a8ecd1;
+}
+
+/* For appearance */
+.sticky-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.sticky-wrap .sticky-thead,
+.sticky-wrap .sticky-col,
+.sticky-wrap .sticky-intersect {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all .125s ease-in-out;
+    z-index: 50;
+    width: auto; /* Prevent table from stretching to full size */
+}
+
+.sticky-wrap .sticky-thead {
+    box-shadow: 0 0.25em 0.1em -0.1em rgba(0, 0, 0, .125);
+    z-index: 100;
+    width: 100%; /* Force stretch */
+}
+
+.sticky-wrap .sticky-intersect {
+    opacity: 1;
+    z-index: 150;
+
+}
+
+.sticky-wrap .sticky-intersect th {
+    background-color: #666;
+    /*color: #eee;*/
+}
+
+.sticky-wrap td,
+.sticky-wrap th {
+    box-sizing: border-box;
+}
+
+/* Not needed for sticky header/column functionality */
+
+.sticky-wrap.overflow-y {
+    overflow-y: auto;
+    max-height: 50vh;
+}
+
+table.dataTable td.select-checkbox:before, table.dataTable td.select-checkbox:after {
+    top: auto;
+}

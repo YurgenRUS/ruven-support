@@ -1,0 +1,48 @@
+h2 {
+    color: dimgray;
+}
+
+#login-form-wrapper {
+    text-align: center;
+    margin: 0 auto;
+    padding: 30px 0 0;
+    width: 100%;
+}
+
+#login-form-wrapper form {
+    width: 50%;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 8px solid #F5F3F0;
+    display: inline-block;
+    margin: 27px auto 0;
+    padding: 30px 50px 45px;
+    position: relative;
+}
+
+.language-select-wrapper {
+    position: absolute;
+    top: 1em;
+    right: 1em;
+}
+
+.field_container {
+    text-align: left;
+    width: auto;
+    float: right;
+
+}
+
+.field {
+    display: block;
+    margin: 1em auto 0;
+}
+
+.button {
+    font-size: large;
+    margin-top: 1em;
+    min-width: 70%;
+}

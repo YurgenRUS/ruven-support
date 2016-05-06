@@ -1,0 +1,14 @@
+td.details-control {
+    background: url("#{resource['images/details_open.png']}") no-repeat center center;
+    cursor: pointer;
+}
+
+tr.shown td.details-control {
+    background: url("#{resource['images/details_close.png']}") no-repeat center center;
+}
+
+.exclamation {
+    height: 5px;
+    width: 5px;
+    background: url("#{resource['images/exclamation-point-1-128.png']}") no-repeat center center;
+}

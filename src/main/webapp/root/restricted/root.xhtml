@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+>
+
+<h:head>
+    <h:outputScript library="DataTables" name="datatables.min.js"/>
+    <h:outputScript library="js" name="jquery-ui.min.js"/>
+    <h:outputScript library="js" name="root.js"/>
+
+    <link href="#{request.contextPath}/resources/DataTables/datatables.min.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/resources/css/forms.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/resources/css/portal.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/resources/css/tables.css" rel="stylesheet"/>
+    <h:outputStylesheet name="css/portal_jsf.css"/>
+    <h:outputStylesheet name="css/root.css"/>
+</h:head>
+<h:body>
+    <div class="header portal-header">
+        <div class="header-first-row">
+            <div class="header-buttons-wrapper" style="vertical-align: middle; text-align: center">
+                <h:commandButton value="Выход" styleClass="webinv-button" action="#{portalAuthenticationBean.logout}"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="content portal-content">
+        <h:form id="create-user-form">
+            <fieldset>
+                <div style="text-align: center">
+                    <h:messages globalOnly="true" autoUpdate="true"/>
+                    <h:selectOneMenu id="role" styleClass="form-field ui-widget-content ui-corner-all"
+                                     value="#{users.currentRole}">
+                        <f:selectItems value="#{users.roleValues}"/>
+                    </h:selectOneMenu>
+                    <h:inputText id="user_email" p:placeholder="email"
+                                 styleClass="form-field text ui-widget-content ui-corner-all"
+                                 value="#{users.email}"/>
+                    <h:inputSecret id="password" styleClass="form-field text ui-widget-content ui-corner-all"
+                                   p:placeholder="пароль"
+                                   value="#{users.password}"/>
+                    <h:commandButton value="Создать пользователя" styleClass="button"
+                                     action="#{users.createUser}"/>
+                </div>
+            </fieldset>
+        </h:form>
+
+        <hr/>
+
+        <div class="table-wrapper">
+            <table id="users-table" class="display" style="width: 100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>ФИО</th>
+                    <th>Роль</th>
+                    <th>Login</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+
+    </div>
+</h:body>
+
+</html>

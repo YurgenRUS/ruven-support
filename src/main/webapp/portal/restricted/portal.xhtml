@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:pf="http://primefaces.org/ui">
+
+<h:head>
+    <f:metadata>
+        <f:event listener="#{surveys.refreshIt}" type="preRenderView"/>
+    </f:metadata>
+
+    <h:outputScript>
+        var contextPath = "#{request.contextPath}";
+    </h:outputScript>
+
+    <h:outputScript library="DataTables" name="datatables.min.js"/>
+    <h:outputScript library="js" name="jquery-ui.min.js"/>
+    <h:outputScript library="js" name="portal.js"/>
+
+    <link href="#{request.contextPath}/resources/DataTables/datatables.css"
+          rel="stylesheet"/>
+    <link href="#{request.contextPath}/css/jquery-ui.min.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/css/main.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/css/webinv.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/resources/css/forms.css" rel="stylesheet"/>
+    <!--<link href="#{request.contextPath}/resources/css/surveys-table.css" rel="stylesheet"/>-->
+    <link href="#{request.contextPath}/css/header.css" rel="stylesheet"/>
+    <link href="#{request.contextPath}/resources/css/portal.css" rel="stylesheet"/>
+    <h:outputStylesheet name="css/portal_jsf.css"/>
+</h:head>
+<h:body>
+    <div class="header portal-header">
+        <div class="header-first-row">
+            <div class="header-buttons-wrapper" style="vertical-align: middle; text-align: center">
+                <h:outputLabel value="#{portal_company.name} / #{portal_employee.email}"/>
+            </div>
+            <div class="header-buttons-wrapper" style="vertical-align: middle; text-align: center">
+                <h:form id="logout_form">
+                    <h:commandButton value="Logout" styleClass="webinv-button"
+                                     action="#{portalAuthenticationBean.logout}"/>
+                </h:form>
+            </div>
+        </div>
+    </div>
+
+    <div class="content portal-content">
+        <div class="filter-date-range">
+            <div style="display: table-row">
+                <div style="display: table-cell">
+                    <select id="survey-status" style="height: 2.5em; margin: 5px">
+                        <option value="">- Status -</option>
+                        <option value="compiling">Compiling</option>
+                        <option value="submitted">Submitted</option>
+                    </select>
+                </div>
+                <div style="display: table-cell">
+                    <span style="margin: 5px">
+                    </span>
+                </div>
+            </div>
+            <div style="display: table-row">
+                <div style="display: table-cell">
+                    <div style="display: table-cell">
+                        <h:outputLabel for="from-date" value="Date range: "/>
+                    </div>
+                    <div style="display: table-cell">
+                        <h:inputText id="from-date" p:placeholder="#{portalUtilityBean.firstDayOfYearAsString}"/>
+                    </div>
+                    <div style="display: table-cell">
+
+                        <h:outputLabel for="to-date" value="-"/>
+                    </div>
+                    <div style="display: table-cell">
+                        <h:inputText id="to-date" p:placeholder="#{portalUtilityBean.nowAsString}"/>
+                    </div>
+                    <div style="display: table-cell; padding:0 5px">
+                        <a href="#"
+                           class="tooltip"
+                           title='This filter depends on survey status filter. When status filter is set to &quot;Submitted&quot;: filter will use submitted date. Otherwise, ir will use survey&#39;s created date.'>
+                    <span title="More">
+                        <h:graphicImage library="images" name="exclamation-point-1-128_light.png" height="15"
+                                        width="15"/>
+                    </span>
+                        </a>
+                    </div>
+                </div>
+                <div style="display: table-cell">
+                    <pf:commandLink styleClass="webinv-button" style="position: absolute; right: 2em"
+                                    update="surveys-table" id="update-surveys"
+                                    action="#{surveys.update()}" onstart="tableDestroy();" onsuccess="tableInitWithDelay();">
+                        <pf:graphicImage style="height: 20px; width: 20px" value="#{pageContext.servletContext.contextPath}/images/refresh_icon_20_white.png"/>
+                    </pf:commandLink>
+                </div>
+            </div>
+        </div>
+
+        <h:outputText value="No surveys yet." rendered="#{empty surveys.info}"/>
+
+        <div id="surveys-table-wrapper">
+            <h:dataTable value="#{surveys.info}" var="s"
+                         id="surveys-table"
+                         styleClass="surveys-table display nowrap"
+                         headerClass="surveys-table-header"
+                         rowClasses="surveys-table-odd-row,surveys-table-even-row"
+            >
+                <h:column>
+                    <f:facet name="header">More</f:facet>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{s.survey.id}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Move type</f:facet>
+                    #{s.survey.moveType}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Contact</f:facet>
+                    <h:outputText value="#{s.survey.userFirstName}" rendered="#{not empty s.survey.userFirstName}"/>
+                    <h:outputText value=" #{s.survey.u_lastname}" rendered="#{not empty s.survey.u_lastname}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Email</f:facet>
+                    #{s.survey.u_email}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Phone</f:facet>
+                    #{s.survey.u_phone}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Mobile</f:facet>
+                    #{s.survey.u_mobile}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">From (briefly)</f:facet>
+                    <div class="address-column">
+                        <h:outputText value="#{s.survey.originBrieflyAddress}"
+                                      rendered="#{not empty s.survey.originBrieflyAddress}"/>
+                    </div>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">To (briefly)</f:facet>
+                    <div class="address-column">
+                        <h:outputText value="#{s.survey.destinationBrieflyAddress}"
+                                      rendered="#{not empty s.survey.destinationBrieflyAddress}"/>
+                    </div>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">From</f:facet>
+                    <h:outputText value="#{s.survey.originFullAddress}" rendered="#{not empty s.survey.originFullAddress}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">To</f:facet>
+                    <h:outputText value="#{s.survey.destinationFullAddress}"
+                                  rendered="#{not empty s.survey.destinationFullAddress}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Survey comments</f:facet>
+                    <h:outputText value="#{s.survey.comments}" rendered="#{not empty s.survey.comments}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Origin comments</f:facet>
+                    <h:outputText value="#{s.survey.o_comments}" rendered="#{not empty s.survey.o_comments}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Destination comments</f:facet>
+                    <h:outputText value="#{s.survey.d_comments}" rendered="#{not empty s.survey.d_comments}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Status</f:facet>
+                    <h:outputText value="#{s.survey.status}" rendered="#{not empty s.survey.status}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Submitted</f:facet>
+                    <h:outputText value="#{s.survey.submitted}" rendered="#{not empty s.survey.submitted}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Created</f:facet>
+                    <h:outputText value="#{s.survey.created}" rendered="#{not empty s.survey.created}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Total</f:facet>
+                    <h:outputText value="#{s.survey.totals}"/>
+                </h:column>
+
+            </h:dataTable>
+        </div>
+    </div>
+</h:body>
+
+</html>
